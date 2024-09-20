@@ -1,17 +1,17 @@
 import { IdIsLogged } from './selectors'
-import { updateButtonState } from './validattions'
+import { validations } from './validations'
 
 const { email, psw, submitButton } = new IdIsLogged()
 
 document.addEventListener('DOMContentLoaded', () => {
-	email.addEventListener('input', updateButtonState)
-	psw.addEventListener('input', updateButtonState)
+	email.addEventListener('input', validations.isLogged)
+	psw.addEventListener('input', validations.isLogged)
 
 	submitButton.addEventListener('click', (event) => {
 		event.preventDefault()
-		if (validateIsLogged()) {
+		if (validations.isLogged()) {
 			console.log('Formulario enviado')
 		}
 	})
-	updateButtonState()
+	validations.isLogged()
 })

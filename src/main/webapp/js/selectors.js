@@ -14,5 +14,6 @@ export class IdIsRegister extends IdIsLogged {
 	constructor() {
 		super()
 		this.newPsw = $('#npsw')
+		this.newPswError = $('#npswHelpBlock')
 	}
 }

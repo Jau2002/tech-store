@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>TechStore</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+			crossorigin="anonymous"
+		/>
+		<link rel="stylesheet" href="./css/register.css" />
+		<script type="module" src="./js/registerTest.js" defer></script>
+	</head>
+	<body>
+		<main>
+			<form method="post" action="index.html">
+				<fieldset class="fieldset">
+					<legend class="fieldset__legend">Información Básica</legend>
+					<div class="mb-3">
+						<input
+							type="email"
+							id="email"
+							placeholder="Ingrese usuario..."
+							name="email"
+							class="form-control"
+						/>
+					</div>
+					<p id="emailHelpBlock" class="form-text">
+						Tu email debe ser un formato valido.
+					</p>
+					<div class="mb-3">
+						<input
+							id="psw"
+							type="password"
+							placeholder="Ingrese contraseña..."
+							name="psw"
+							class="form-control"
+						/>
+					</div>
+					<p id="passwordHelpBlock" class="form-text">
+						Tu contraseña debe tener entre 8 a 20 caracteres, al menos una
+						mayúscula, una minúscula, un número, y que no incluya caracteres
+						especiales ni espacios.
+					</p>
+					<div class="mb-3">
+						<input
+							id="npsw"
+							type="password"
+							placeholder="Confirme nueva contraseña..."
+							name="npsw"
+							class="form-control"
+						/>
+					</div>
+					<p id="npswHelpBlock" class="form-text">
+						Tus contraseñas no coinciden
+					</p>
+					<button type="submit" id="submit" class="btn btn-outline-dark">
+						Registrar
+					</button>
+				</fieldset>
+			</form>
+		</main>
+	</body>
+</html>
