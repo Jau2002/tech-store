@@ -13,7 +13,17 @@ export class IdIsLogged {
 export class IdIsRegister extends IdIsLogged {
 	constructor() {
 		super()
-		this.newPsw = $('#npsw')
+		this.newPsw = $('#nPsw')
 		this.newPswError = $('#npswHelpBlock')
+	}
+}
+
+export class IdIsChangePass {
+	constructor() {
+		this.submitButton = $('#submit')
+		this.newPsw = $('#nPsw')
+		this.conPsw = $('#cPsw')
+		this.newPswError = $('#npswHelpBlock')
+		this.conPswError = $('#conPassHelpBlock')
 	}
 }
