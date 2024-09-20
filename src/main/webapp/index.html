@@ -4,24 +4,54 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>TechStore</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+			crossorigin="anonymous"
+		/>
+		<link rel="stylesheet" href="./css/login.css" />
 		<script type="module" src="./js/loggedTest.js" defer></script>
 	</head>
 	<body>
 		<form method="post" action="index.html">
-			<input
-				type="email"
-				id="email"
-				placeholder="Ingrese usuario..."
-				name="email"
-			/>
-			<input
-				id="psw"
-				type="password"
-				placeholder="Ingrese contraseña..."
-				name="psw"
-			/>
-			<button type="submit" id="submit">Iniciar sesión</button>
-			<a href="/registro.html"><span>No tengo cuenta</span></a>
+			<fieldset class="fieldset">
+				<legend class="fieldset__legend">Iniciar Sección</legend>
+				<div class="mb-3">
+					<input
+						type="email"
+						id="email"
+						placeholder="Ingrese usuario..."
+						name="email"
+						class="form-control"
+					/>
+				</div>
+				<p id="emailHelpBlock" class="form-text">
+					Tu email debe ser un formato valido.
+				</p>
+				<div class="mb-3">
+					<input
+						id="psw"
+						type="password"
+						placeholder="Ingrese contraseña..."
+						name="psw"
+						class="form-control"
+					/>
+				</div>
+				<p id="passwordHelpBlock" class="form-text">
+					Tu contraseña debe tener entre 8 a 20 caracteres, al menos una
+					mayúscula, una minúscula, un número, y que no incluya caracteres
+					especiales ni espacios.
+				</p>
+				<div class="div-handlers">
+					<button type="submit" id="submit" class="btn btn-outline-dark">
+						Iniciar sesión
+					</button>
+					<a href="/registro.html" class="link-opacity-50-hover div-handlers__a"
+						><span>No tengo cuenta</span></a
+					>
+				</div>
+			</fieldset>
 		</form>
 	</body>
 </html>

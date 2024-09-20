@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  background-color: #f0f0f0;
+}
+
+.fieldset {
+  position: relative;
+  width: 500px;
+  margin: 0 auto;
+  background-color: #f8f9fa;
+  padding: 20px;
+  border: 1px solid #888;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 30%;
+  left: 36%;
+}
+
+.fieldset__legend {
+  font-size: 2em;
+}
+
+.div-handlers {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.div-handlers__a {
+  text-decoration: none;
+  margin-top: 8px;
+}
