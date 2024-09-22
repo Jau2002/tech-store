@@ -11,7 +11,82 @@
 			crossorigin="anonymous"
 		/>
 		<link rel="stylesheet" href="./css/register.css" />
-		<script type="module" src="./js/changePassTest.js" defer></script>
+		<script type="module" defer>
+const $ = (select) => document.querySelector(select)
+
+class IdIsChangePass {
+	constructor() {
+		this.submitButton = $('#submit')
+		this.newPsw = $('#nPsw')
+		this.conPsw = $('#cPsw')
+		this.newPswError = $('#newPassHelpBlock')
+		this.conPswError = $('#conPassHelpBlock')
+		this.toBack = $('#toBack')
+	}
+}
+
+const { newPsw, conPsw, newPswError, conPswError, submitButton, toBack } =
+	new IdIsChangePass()
+
+const passwordValidation = (pass, err) => {
+	let isValid = true
+
+	if (isValid != false && !pass.value) {
+		pass.focus()
+		isValid = false
+		err.style.display = 'block'
+	} else if (
+		isValid != false &&
+		!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,20}$/.test(pass.value)
+	) {
+		pass.focus()
+		isValid = false
+		err.style.display = 'block'
+	} else {
+		err.style.display = 'none'
+	}
+	return isValid
+}
+
+function validateIsChange() {
+	let isValid = passwordValidation(newPsw, newPswError)
+
+	if (isValid != false && !conPsw.value) {
+		conPsw.focus()
+		isValid = false
+		conPswError.style.display = 'block'
+	} else if (isValid != false && conPsw.value != newPsw.value) {
+		conPsw.focus()
+		isValid = false
+		conPswError.style.display = 'block'
+	} else {
+		conPswError.style.display = 'none'
+	}
+	return isValid
+}
+
+const validations = {
+	isChange: () => (submitButton.disabled = !validateIsChange()),
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+	newPsw.addEventListener('input', validations.isChange)
+	conPsw.addEventListener('input', validations.isChange)
+
+	submitButton.addEventListener('click', (event) => {
+		event.preventDefault()
+		if (validations.isChange()) {
+			console.log('Formulario enviado')
+		}
+	})
+
+	toBack.addEventListener('click', (_) => {
+		window.history.back()
+	})
+
+	validations.isChange()
+})
+		</script>
 	</head>
 	<body>
 		<main>
@@ -47,6 +122,7 @@
 					<button type="submit" id="submit" class="btn btn-outline-dark">
 						Cambiar
 					</button>
+					<span type="button" class="fieldset__a" id="toBack">Volver</span>
 				</fieldset>
 			</form>
 		</main>
