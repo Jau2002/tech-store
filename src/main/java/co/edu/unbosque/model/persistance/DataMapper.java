@@ -12,12 +12,12 @@ import co.edu.unbosque.model.ProductoDTO;
 
 public class DataMapper {
 
-	// Convierte Cliente a ClienteDTO
+	
 	public static ClienteDTO toDTO(Cliente cliente) {
 		return new ClienteDTO(cliente.getId(), cliente.getNombre(), cliente.getEmail(), cliente.getContraseña(),
 				cliente.getNivelMembresia(), cliente.getRol());
 	}
-	// Convierte ClienteDTO a Cliente
+	
 	public static Cliente toEntity(ClienteDTO clienteDTO) {
 		return new Cliente(clienteDTO.getId(), clienteDTO.getNombre(), clienteDTO.getEmail(),
 				clienteDTO.getContraseña(), clienteDTO.getNivelMembresia(), clienteDTO.getRol());

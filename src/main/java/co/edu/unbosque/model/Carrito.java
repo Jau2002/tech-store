@@ -33,7 +33,7 @@ public class Carrito implements Serializable{
         this.productos = productos;
     }
 
-    // Métodos para agregar/eliminar productos
+    
     public void agregarProducto(Producto producto, int cantidad) {
         productos.put(producto, productos.getOrDefault(producto, 0) + cantidad);
     }
