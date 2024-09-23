@@ -12,97 +12,105 @@
 		/>
 		<link rel="stylesheet" href="./css/register.css" />
 		<script type="module" defer>
-const $ = (select) => document.querySelector(select)
+			const $ = (select) => document.querySelector(select)
 
-class IdIsLogged {
-	constructor() {
-		this.email = $('#email')
-		this.psw = $('#psw')
-		this.submitButton = $('#submit')
-		this.pswError = $('#passwordHelpBlock')
-		this.emailError = $('#emailHelpBlock')
-	}
-}
+			class IdIsRegister {
+				constructor() {
+					this.email = $('#email')
+					this.psw = $('#psw')
+					this.submitButton = $('#submit')
+					this.pswError = $('#passwordHelpBlock')
+					this.emailError = $('#emailHelpBlock')
+					this.newPsw = $('#npsw')
+					this.newPswError = $('#npswHelpBlock')
+					this.back = $('#goBack')
+				}
+			}
 
-class IdIsRegister extends IdIsLogged {
-	constructor() {
-		super()
-		this.newPsw = $('#npsw')
-		this.newPswError = $('#npswHelpBlock')
-	}
-}
+			const {
+				email,
+				psw,
+				submitButton,
+				newPsw,
+				emailError,
+				pswError,
+				newPswError,
+				back,
+			} = new IdIsRegister()
 
-const { email, psw, submitButton, newPsw, emailError, pswError, newPswError } =
-	new IdIsRegister()
+			function validateIsLogged() {
+				let isValid = true
 
-function validateIsLogged() {
-	let isValid = true
+				if (!email.value) {
+					email.focus()
+					emailError.style.display = 'block'
+					isValid = false
+				} else if (!/^[a-z]+@unbosque\.edu\.co$/.test(email.value)) {
+					email.focus()
+					emailError.style.display = 'block'
+					isValid = false
+				} else {
+					emailError.style.display = 'none'
+				}
 
-	if (!email.value) {
-		email.focus()
-		emailError.style.display = 'block'
-		isValid = false
-	} else if (!/^[a-z]+@unbosque\.edu\.co$/.test(email.value)) {
-		email.focus()
-		emailError.style.display = 'block'
-		isValid = false
-	} else {
-		emailError.style.display = 'none'
-	}
+				if (isValid != false && !psw.value) {
+					psw.focus()
+					isValid = false
+					pswError.style.display = 'block'
+				} else if (
+					isValid != false &&
+					!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,20}$/.test(psw.value)
+				) {
+					psw.focus()
+					isValid = false
+					pswError.style.display = 'block'
+				} else {
+					pswError.style.display = 'none'
+				}
 
-	if (isValid != false && !psw.value) {
-		psw.focus()
-		isValid = false
-		pswError.style.display = 'block'
-	} else if (
-		isValid != false &&
-		!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,20}$/.test(psw.value)
-	) {
-		psw.focus()
-		isValid = false
-		pswError.style.display = 'block'
-	} else {
-		pswError.style.display = 'none'
-	}
+				return isValid
+			}
 
-	return isValid
-}
+			function validateIsRegister() {
+				let isValid = validateIsLogged()
 
-function validateIsRegister() {
-	let isValid = validateIsLogged()
+				if (isValid != false && !newPsw.value) {
+					newPsw.focus()
+					isValid = false
+					newPswError.style.display = 'block'
+				} else if (isValid != false && newPsw.value != psw.value) {
+					newPsw.focus()
+					isValid = false
+					newPswError.style.display = 'block'
+				} else {
+					newPswError.style.display = 'none'
+				}
 
-	if (isValid != false && !newPsw.value) {
-		newPsw.focus()
-		isValid = false
-		newPswError.style.display = 'block'
-	} else if (isValid != false && newPsw.value != psw.value) {
-		newPsw.focus()
-		isValid = false
-		newPswError.style.display = 'block'
-	} else {
-		newPswError.style.display = 'none'
-	}
+				return isValid
+			}
 
-	return isValid
-}
+			const validations = {
+				isRegister: () => (submitButton.disabled = !validateIsRegister()),
+			}
 
-const validations = {
-	isRegister: () => (submitButton.disabled = !validateIsRegister()),
-}
+			document.addEventListener('DOMContentLoaded', () => {
+				email.addEventListener('input', validations.isRegister)
+				psw.addEventListener('input', validations.isRegister)
+				newPsw.addEventListener('input', validations.isRegister)
 
-document.addEventListener('DOMContentLoaded', () => {
-	email.addEventListener('input', validations.isRegister)
-	psw.addEventListener('input', validations.isRegister)
-	newPsw.addEventListener('input', validations.isRegister)
+				submitButton.addEventListener('click', (event) => {
+					event.preventDefault()
+					if (validations.isRegister()) {
+						console.log('Formulario enviado')
+					}
+				})
 
-	submitButton.addEventListener('click', (event) => {
-		event.preventDefault()
-		if (validations.isRegister()) {
-			console.log('Formulario enviado')
-		}
-	})
-	validations.isRegister()
-})
+				back.addEventListener('click', (_) => {
+					window.history.back()
+				})
+
+				validations.isRegister()
+			})
 		</script>
 	</head>
 	<body>
@@ -148,9 +156,16 @@ document.addEventListener('DOMContentLoaded', () => {
 					<p id="npswHelpBlock" class="form-text">
 						Tus contraseñas no coinciden
 					</p>
-					<button type="submit" id="submit" class="btn btn-outline-dark">
-						Registrarse
-					</button>
+					<div
+						class="div-handlers d-flex justify-content-between align-items-center"
+					>
+						<button type="submit" id="submit" class="btn btn-outline-dark">
+							Registrarse
+						</button>
+						<p class="link-opacity-50-hover" id="goBack">
+							<span>Volver a la página anterior</span>
+						</p>
+					</div>
 				</fieldset>
 			</form>
 		</main>

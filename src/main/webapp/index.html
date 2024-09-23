@@ -11,70 +11,71 @@
 			crossorigin="anonymous"
 		/>
 		<link rel="stylesheet" href="./css/login.css" />
-		<script type="module" type="text/javascript" defer>
-const $ = (select) => document.querySelector(select)
+		<script type="module" defer>
+			const $ = (select) => document.querySelector(select)
 
-class IdIsLogged {
-	constructor() {
-		this.email = $('#email')
-		this.psw = $('#psw')
-		this.submitButton = $('#submit')
-		this.pswError = $('#passwordHelpBlock')
-		this.emailError = $('#emailHelpBlock')
-	}
-}
+			class IdIsLogged {
+				constructor() {
+					this.email = $('#email')
+					this.psw = $('#psw')
+					this.submitButton = $('#submit')
+					this.pswError = $('#passwordHelpBlock')
+					this.emailError = $('#emailHelpBlock')
+				}
+			}
 
-const { email, psw, submitButton, emailError, pswError } = new IdIsLogged()
+			const { email, psw, submitButton, emailError, pswError } =
+				new IdIsLogged()
 
-function validateIsLogged() {
-	let isValid = true
+			function validateIsLogged() {
+				let isValid = true
 
-	if (!email.value) {
-		email.focus()
-		emailError.style.display = 'block'
-		isValid = false
-	} else if (!/^[a-z]+@unbosque\.edu\.co$/.test(email.value)) {
-		email.focus()
-		emailError.style.display = 'block'
-		isValid = false
-	} else {
-		emailError.style.display = 'none'
-	}
+				if (!email.value) {
+					email.focus()
+					emailError.style.display = 'block'
+					isValid = false
+				} else if (!/^[a-z]+@unbosque\.edu\.co$/.test(email.value)) {
+					email.focus()
+					emailError.style.display = 'block'
+					isValid = false
+				} else {
+					emailError.style.display = 'none'
+				}
 
-	if (isValid != false && !psw.value) {
-		psw.focus()
-		isValid = false
-		pswError.style.display = 'block'
-	} else if (
-		isValid != false &&
-		!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,20}$/.test(psw.value)
-	) {
-		psw.focus()
-		isValid = false
-		pswError.style.display = 'block'
-	} else {
-		pswError.style.display = 'none'
-	}
+				if (isValid != false && !psw.value) {
+					psw.focus()
+					isValid = false
+					pswError.style.display = 'block'
+				} else if (
+					isValid != false &&
+					!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,20}$/.test(psw.value)
+				) {
+					psw.focus()
+					isValid = false
+					pswError.style.display = 'block'
+				} else {
+					pswError.style.display = 'none'
+				}
 
-	return isValid
-}
+				return isValid
+			}
 
-const validations = {
-	isLogged: () => (submitButton.disabled = !validateIsLogged()),
-}
+			const validations = {
+				isLogged: () => (submitButton.disabled = !validateIsLogged()),
+			}
 
-document.addEventListener('DOMContentLoaded', () => {
-	email.addEventListener('input', validations.isLogged)
-	psw.addEventListener('input', validations.isLogged)
+			document.addEventListener('DOMContentLoaded', () => {
+				email.addEventListener('input', validations.isLogged)
+				psw.addEventListener('input', validations.isLogged)
 
-	submitButton.addEventListener('click', (event) => {
-		event.preventDefault()
-		if (validations.isLogged()) {
-			console.log('Formulario enviado')
-		}
-	})
-	validations.isLogged()
-})
+				submitButton.addEventListener('click', (event) => {
+					event.preventDefault()
+					if (validations.isLogged()) {
+						console.log('Formulario enviado')
+					}
+				})
+				validations.isLogged()
+			})
 		</script>
 	</head>
 	<body>
@@ -91,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					/>
 				</div>
 				<p id="emailHelpBlock" class="form-text">
-					Tu email debe ser un formato valido.
+					*Tu email debe ser un formato valido.
 				</p>
 				<div class="mb-3">
 					<input
@@ -111,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					<button type="submit" id="submit" class="btn btn-outline-dark">
 						Iniciar sesión
 					</button>
-					<a href="registro.html" class="link-opacity-50-hover div-handlers__a"
+					<a href="/registro.html" class="link-opacity-50-hover div-handlers__a"
 						><span>No tengo cuenta</span></a
 					>
 				</div>
