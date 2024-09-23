@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>TechStore</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+			crossorigin="anonymous"
+		/>
+		<link rel="stylesheet" href="/css/modules.css" />
+		<style>
+			.product-img {
+				max-width: 100%;
+				height: auto;
+				object-fit: cover;
+			}
+			.product-card {
+				margin-bottom: 20px;
+			}
+		</style>
+		<script type="module" defer>
+			const $ = (select) => document.querySelector(select)
+
+			document.addEventListener('DOMContentLoaded', () => {
+				const producto = {
+					nombre: 'Laptop HP',
+					categoria: 'Electrónica',
+					precio: 1200.0,
+					stock: 10,
+					imagen: 'https://via.placeholder.com/300',
+				}
+
+				$('#nombreProducto').textContent = producto.nombre
+				$('#categoriaProducto').textContent = producto.categoria
+				$('#precioProducto').textContent = producto.precio.toFixed(2)
+				$('#stockProducto').textContent = producto.stock
+				$('#productImage').src = producto.imagen
+
+				$('#agregarCarritoBtn').addEventListener('click', (event) => {
+					event.preventDefault()
+					console.log(`Producto agregado al carrito: ${producto.nombre}`)
+				})
+
+				$('#categorySelect').addEventListener('change', (event) => {
+					const categoriaSeleccionada = event.target.value
+					console.log(
+						`Filtrando productos en la categoría: ${categoriaSeleccionada}`
+					)
+				})
+
+				$('#productSearch').addEventListener('input', (event) => {
+					const query = event.target.value.toLowerCase()
+					console.log(`Buscando productos con el nombre: ${query}`)
+				})
+			})
+		</script>
+	</head>
+
+	<body>
+		<main>
+			<header class="navbar navbar-light bg-primary text-white p-3">
+				<div class="container-fluid d-flex justify-content-between">
+					<span class="navbar-brand">TechStore</span>
+					<div class="d-flex align-items-center me-5">
+						<div class="dropdown me-4" tabindex="0">
+							<a
+								class="text-reset me-3 dropdown-toggle hidden-arrow"
+								href="#"
+								id="navbarDropdownMenuLink"
+								role="button"
+								aria-expanded="false"
+							>
+								<span class="navbar-brand">Jaume</span>
+							</a>
+							<ul
+								class="dropdown-menu dropdown-menu-end"
+								aria-labelledby="navbarDropdownMenuLink"
+							>
+								<li>
+									<a class="dropdown-item" href="cuenta.html">Configuración</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="index.html">Cerrar sesión</a>
+								</li>
+							</ul>
+						</div>
+						<a class="text-reset me-3" href="#">
+							<img
+								src="./statics/shopping-cart-outline-svgrepo-com.svg"
+								alt="Carrito de compras"
+							/>
+						</a>
+					</div>
+				</div>
+			</header>
+			<article class="container mt-4">
+				<fieldset class="fieldset">
+					<legend class="fieldset__legend">Buscar Productos</legend>
+					<div class="row mb-4">
+						<div class="col-md-6">
+							<input
+								type="text"
+								id="productSearch"
+								class="form-control"
+								placeholder="Buscar por nombre del producto"
+							/>
+						</div>
+						<div class="col-md-4">
+							<select id="categorySelect" class="form-select">
+								<option value="">Todas las categorías</option>
+								<option value="telefonos">Teléfonos</option>
+								<option value="laptops">Laptops</option>
+								<option value="televisores">Televisores</option>
+							</select>
+						</div>
+					</div>
+				</fieldset>
+				<section id="productGrid" class="row">
+					<div class="col-md-4 product-card">
+						<div class="card">
+							<img
+								src="https://via.placeholder.com/300"
+								alt="Producto"
+								class="card-img-top product-img"
+								id="productImage"
+							/>
+							<div class="card-body">
+								<h5 class="card-title">
+									Nombre del producto: <span id="nombreProducto"></span>
+								</h5>
+								<h6 class="card-subtitle mb-2 text-muted">
+									Categoría: <span id="categoriaProducto"></span>
+								</h6>
+								<p class="card-text">
+									Precio: $<span id="precioProducto"></span>
+								</p>
+								<p class="card-text">
+									Stock disponible: <span id="stockProducto"></span>
+								</p>
+								<button id="agregarCarritoBtn" class="btn btn-primary">
+									Agregar al carrito
+								</button>
+							</div>
+						</div>
+					</div>
+				</section>
+			</article>
+			<footer class="text-center text-white footer">
+				<section class="row d-flex justify-content-center">
+					<span class="text-center p-3 footer__span"
+						>© 2024 Copyright: Universidad el Bosque</span
+					>
+				</section>
+			</footer>
+		</main>
+	</body>
+</html>
