@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>TechStore</title>
 		<link
 			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -10,121 +10,189 @@
 			integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 			crossorigin="anonymous"
 		/>
-		<link rel="stylesheet" href="./css/register.css" />
+		<link rel="stylesheet" href="./css/login.css" />
 		<script type="module" defer>
-const $ = (select) => document.querySelector(select)
+			const $ = (select) => document.querySelector(select)
 
-class IdIsChangePass {
-	constructor() {
-		this.submitButton = $('#submit')
-		this.newPsw = $('#nPsw')
-		this.conPsw = $('#cPsw')
-		this.newPswError = $('#newPassHelpBlock')
-		this.conPswError = $('#conPassHelpBlock')
-		this.toBack = $('#toBack')
-	}
-}
+			class IdIsLogged {
+				constructor() {
+					this.nombre = $('#nombre')
+					this.email = $('#email')
+					this.nivelMembresia = $('#nivelMembresia')
+					this.psw = $('#psw')
+					this.pswConfirm = $('#pswConfirm')
+					this.submitButton = $('#submit')
+					this.nombreError = $('#nombreHelpBlock')
+					this.emailError = $('#emailHelpBlock')
+					this.pswError = $('#passwordHelpBlock')
+					this.pswConfirmError = $('#passwordConfirmHelpBlock')
+					this.back = $('#goBack')
+				}
+			}
 
-const { newPsw, conPsw, newPswError, conPswError, submitButton, toBack } =
-	new IdIsChangePass()
+			const {
+				nombre,
+				email,
+				nivelMembresia,
+				psw,
+				pswConfirm,
+				submitButton,
+				nombreError,
+				emailError,
+				pswError,
+				pswConfirmError,
+				back,
+			} = new IdIsLogged()
 
-const passwordValidation = (pass, err) => {
-	let isValid = true
+			function validateIsLogged() {
+				let isValid = true
 
-	if (isValid != false && !pass.value) {
-		pass.focus()
-		isValid = false
-		err.style.display = 'block'
-	} else if (
-		isValid != false &&
-		!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,20}$/.test(pass.value)
-	) {
-		pass.focus()
-		isValid = false
-		err.style.display = 'block'
-	} else {
-		err.style.display = 'none'
-	}
-	return isValid
-}
+				if (isValid != false && !nombre.value) {
+					nombre.focus()
+					nombreError.style.display = 'block'
+					isValid = false
+				} else {
+					nombreError.style.display = 'none'
+				}
 
-function validateIsChange() {
-	let isValid = passwordValidation(newPsw, newPswError)
+				if (
+					(isValid != false && !email.value) ||
+					!/^[a-z]+@unbosque\.edu\.co$/.test(email.value)
+				) {
+					email.focus()
+					emailError.style.display = 'block'
+					isValid = false
+				} else {
+					emailError.style.display = 'none'
+				}
 
-	if (isValid != false && !conPsw.value) {
-		conPsw.focus()
-		isValid = false
-		conPswError.style.display = 'block'
-	} else if (isValid != false && conPsw.value != newPsw.value) {
-		conPsw.focus()
-		isValid = false
-		conPswError.style.display = 'block'
-	} else {
-		conPswError.style.display = 'none'
-	}
-	return isValid
-}
+				if (isValid != false && !psw.value) {
+					psw.focus()
+					pswError.style.display = 'block'
+					isValid = false
+				} else if (
+					isValid != false &&
+					!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,20}$/.test(psw.value)
+				) {
+					psw.focus()
+					pswError.style.display = 'block'
+					isValid = false
+				} else {
+					pswError.style.display = 'none'
+				}
 
-const validations = {
-	isChange: () => (submitButton.disabled = !validateIsChange()),
-}
+				if (isValid != false && psw.value !== pswConfirm.value) {
+					pswConfirm.focus()
+					pswConfirmError.style.display = 'block'
+					isValid = false
+				} else {
+					pswConfirmError.style.display = 'none'
+				}
 
-document.addEventListener('DOMContentLoaded', () => {
-	newPsw.addEventListener('input', validations.isChange)
-	conPsw.addEventListener('input', validations.isChange)
+				return isValid
+			}
 
-	submitButton.addEventListener('click', (event) => {
-		event.preventDefault()
-		if (validations.isChange()) {
-			console.log('Formulario enviado')
-		}
-	})
+			const validations = {
+				isLogged: () => (submitButton.disabled = !validateIsLogged()),
+			}
 
-	toBack.addEventListener('click', (_) => {
-		window.history.back()
-	})
+			document.addEventListener('DOMContentLoaded', () => {
+				nombre.addEventListener('input', validations.isLogged)
+				psw.addEventListener('input', validations.isLogged)
+				pswConfirm.addEventListener('input', validations.isLogged)
 
-	validations.isChange()
-})
+				submitButton.addEventListener('click', (event) => {
+					event.preventDefault()
+					if (validateIsLogged()) {
+						console.log('Formulario enviado')
+					}
+				})
+				back.addEventListener('click', (_) => {
+					window.history.back()
+				})
+				validations.isLogged()
+			})
 		</script>
 	</head>
 	<body>
-		<main>
-			<form method="post" action="index.html">
-				<fieldset class="fieldset">
-					<legend class="fieldset__legend">Cambiar contraseña</legend>
-					<div class="mb-3">
-						<input
-							type="password"
-							id="nPsw"
-							placeholder="Ingrese nueva contraseña..."
-							name="nPsw"
-							class="form-control"
-						/>
-					</div>
-					<p id="newPassHelpBlock" class="form-text">
-						Tu contraseña debe tener entre 8 a 20 caracteres, al menos una
-						mayúscula, una minúscula, un número, y que no incluya caracteres
-						especiales ni espacios.
-					</p>
-					<div class="mb-3">
-						<input
-							id="cPsw"
-							type="password"
-							placeholder="Confirme nueva contraseña..."
-							name="cPsw"
-							class="form-control"
-						/>
-					</div>
-					<p id="conPassHelpBlock" class="form-text">
-						Tus contraseñas no coinciden
-					</p>
+		<form method="post" action="index.html">
+			<fieldset class="fieldset">
+				<legend class="fieldset__legend">Modificar Usuario</legend>
+				<div class="mb-3">
+					<input
+						type="text"
+						id="nombre"
+						placeholder="Ingrese su nombre..."
+						name="nombre"
+						class="form-control"
+					/>
+				</div>
+				<p id="nombreHelpBlock" class="form-text" style="display: none">
+					El nombre es obligatorio.
+				</p>
+				<div class="mb-3">
+					<input
+						type="email"
+						id="email"
+						value="usuario@unbosque.edu.co"
+						name="email"
+						class="form-control"
+						disabled
+					/>
+				</div>
+				<p id="emailHelpBlock" class="form-text">
+					Tu email debe ser un formato válido.
+				</p>
+				<div class="mb-3">
+					<label for="nivelMembresia" class="form-label"
+						>Nivel de Membresía</label
+					>
+					<select id="nivelMembresia" class="form-select" name="nivelMembresia">
+						<option value="regular">Regular</option>
+						<option value="oro">Oro</option>
+						<option value="plata">Plata</option>
+						<option value="platino">Platino</option>
+					</select>
+				</div>
+				<div class="mb-3">
+					<input
+						id="psw"
+						type="password"
+						placeholder="Ingrese contraseña..."
+						name="psw"
+						class="form-control"
+					/>
+				</div>
+				<p id="passwordHelpBlock" class="form-text">
+					Tu contraseña debe tener entre 8 a 20 caracteres, al menos una
+					mayúscula, una minúscula, un número, y que no incluya caracteres
+					especiales ni espacios.
+				</p>
+				<div class="mb-3">
+					<input
+						id="pswConfirm"
+						type="password"
+						placeholder="Confirme su contraseña..."
+						name="pswConfirm"
+						class="form-control"
+					/>
+				</div>
+				<p
+					id="passwordConfirmHelpBlock"
+					class="form-text"
+					style="display: none"
+				>
+					Las contraseñas no coinciden.
+				</p>
+				<div class="div-handlers">
 					<button type="submit" id="submit" class="btn btn-outline-dark">
-						Cambiar
+						Iniciar sesión
 					</button>
-					<span type="button" class="fieldset__a" id="toBack">Volver</span>
-				</fieldset>
-			</form>
-		</main>
+					<a href="registro.html" class="link-opacity-50-hover div-handlers__a">
+						<span>No tengo cuenta</span>
+					</a>
+				</div>
+			</fieldset>
+		</form>
 	</body>
 </html>
