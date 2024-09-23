@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>TechStore</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+			crossorigin="anonymous"
+		/>
+		<link rel="stylesheet" href="/css/product.css" />
+
+		<script type="module" defer>
+			const $ = (select) => document.querySelector(select)
+
+			class ProductForm {
+				constructor() {
+					this.nombre = $('#nombre')
+					this.categoria = $('#categoria')
+					this.precio = $('#precio')
+					this.stock = $('#stock')
+					this.imagen = $('#imagen')
+					this.submitButton = $('#submit')
+					this.back = $('#goBack')
+					this.nombreError = $('#nombreHelpBlock')
+					this.categoriaError = $('#categoriaHelpBlock')
+					this.precioError = $('#precioHelpBlock')
+					this.stockError = $('#stockHelpBlock')
+					this.imagenError = $('#imagenHelpBlock')
+				}
+			}
+
+			const {
+				nombre,
+				categoria,
+				precio,
+				stock,
+				imagen,
+				submitButton,
+				nombreError,
+				categoriaError,
+				precioError,
+				stockError,
+				imagenError,
+				back,
+			} = new ProductForm()
+
+			function validateProductForm() {
+				let isValid = true
+
+				if (isValid != false && !nombre.value.trim()) {
+					nombre.focus()
+					nombreError.style.display = 'block'
+					isValid = false
+				} else {
+					nombreError.style.display = 'none'
+				}
+
+				if (isValid != false && !categoria.value.trim()) {
+					categoria.focus()
+					categoriaError.style.display = 'block'
+					isValid = false
+				} else {
+					categoriaError.style.display = 'none'
+				}
+
+				if (
+					(isValid != false && !precio.value) ||
+					parseFloat(precio.value) <= 0
+				) {
+					precio.focus()
+					precioError.style.display = 'block'
+					isValid = false
+				} else {
+					precioError.style.display = 'none'
+				}
+
+				if ((isValid != false && !stock.value) || parseInt(stock.value) < 0) {
+					stock.focus()
+					stockError.style.display = 'block'
+					isValid = false
+				} else {
+					stockError.style.display = 'none'
+				}
+
+				if (
+					isValid != false ??
+					!imagen.value ??
+					!/^https?:\/\/.+\..+$/.test(imagen.value)
+				) {
+					imagen.focus()
+					imagenError.style.display = 'block'
+					isValid = false
+				} else {
+					imagenError.style.display = 'none'
+				}
+
+				return isValid
+			}
+
+			const validations = {
+				validateForm: () => (submitButton.disabled = !validateProductForm()),
+			}
+
+			document.addEventListener('DOMContentLoaded', () => {
+				nombre.addEventListener('input', validations.validateForm)
+				categoria.addEventListener('input', validations.validateForm)
+				precio.addEventListener('input', validations.validateForm)
+				stock.addEventListener('input', validations.validateForm)
+				imagen.addEventListener('input', validations.validateForm)
+
+				submitButton.addEventListener('click', (event) => {
+					event.preventDefault()
+					if (validations.validateForm()) {
+						console.log('Formulario enviado')
+					}
+				})
+
+				back.addEventListener('click', () => {
+					window.history.back()
+				})
+
+				validations.validateForm()
+			})
+		</script>
+	</head>
+	<body>
+		<form method="post" action="/editarProducto">
+			<fieldset class="fieldset">
+				<legend class="fieldset__legend">Modificar Producto</legend>
+				<div class="mb-3">
+					<label for="nombre" class="form-label">Nombre del producto</label>
+					<input
+						type="text"
+						id="nombre"
+						placeholder="Ingrese nombre del producto"
+						name="nombre"
+						class="form-control"
+						required
+					/>
+					<p id="nombreHelpBlock" class="form-text">
+						El nombre del producto es obligatorio.
+					</p>
+				</div>
+				<div class="mb-3">
+					<label for="categoria" class="form-label">Categoría</label>
+					<input
+						type="text"
+						id="categoria"
+						placeholder="Ingrese categoría"
+						name="categoria"
+						class="form-control"
+						required
+					/>
+					<p id="categoriaHelpBlock" class="form-text">
+						La categoría es obligatoria.
+					</p>
+				</div>
+				<div class="mb-3">
+					<label for="precio" class="form-label">Precio</label>
+					<input
+						type="number"
+						id="precio"
+						placeholder="Ingrese precio"
+						name="precio"
+						class="form-control"
+						step="0.01"
+						required
+					/>
+					<p id="precioHelpBlock" class="form-text">
+						El precio debe ser mayor a 0.
+					</p>
+				</div>
+				<div class="mb-3">
+					<label for="stock" class="form-label">Stock</label>
+					<input
+						type="number"
+						id="stock"
+						placeholder="Ingrese stock"
+						name="stock"
+						class="form-control"
+						required
+					/>
+					<p id="stockHelpBlock" class="form-text">
+						El stock no puede ser negativo.
+					</p>
+				</div>
+				<div class="mb-3">
+					<label for="imagen" class="form-label">URL de la Imagen</label>
+					<input
+						type="url"
+						id="imagen"
+						placeholder="Ingrese URL de la imagen"
+						name="imagen"
+						class="form-control"
+					/>
+					<p id="imagenHelpBlock" class="form-text">Ingrese una URL válida.</p>
+				</div>
+				<div
+					class="div-handlers d-flex justify-content-between align-items-center"
+				>
+					<button type="submit" id="submit" class="btn btn-outline-dark">
+						Editar
+					</button>
+					<span
+						class="link-opacity-50-hover div-handlers__span mb-0"
+						id="goBack"
+					>
+						Volver a la página anterior
+					</span>
+				</div>
+			</fieldset>
+		</form>
+	</body>
+</html>

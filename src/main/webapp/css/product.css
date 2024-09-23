@@ -1,0 +1,35 @@
+.fieldset {
+	border: 1px solid #ccc;
+	padding: 1.5rem;
+	border-radius: 10px;
+	max-width: 600px;
+	margin: 2rem auto;
+}
+
+.fieldset__legend {
+	font-size: 1.5rem;
+	font-weight: bold;
+	margin-bottom: 1rem;
+}
+
+.div-handlers {
+	margin-top: 1.5rem;
+}
+
+.div-handlers__span {
+	cursor: pointer;
+	color: #007bff;
+	text-decoration: underline;
+}
+
+.div-handlers__span:hover {
+	color: #0056b3;
+}
+
+.div-handlers button {
+	margin-right: 10px;
+}
+
+.form-text {
+	display: none;
+}

@@ -45,7 +45,10 @@
 					email.focus()
 					emailError.style.display = 'block'
 					isValid = false
-				} else if (!/^[a-z]+@unbosque\.edu\.co$/.test(email.value)) {
+				} else if (
+					isValid != false &&
+					!/^[a-z]+@unbosque\.edu\.co$/.test(email.value)
+				) {
 					email.focus()
 					emailError.style.display = 'block'
 					isValid = false
